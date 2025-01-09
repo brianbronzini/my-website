@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cybersecurity Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             font-family: 'Roboto', sans-serif;
-            background-color: #121212;
+            background-color: #2c89cd;
             color: #ffffff;
             overflow-x: hidden;
         }
@@ -34,7 +34,7 @@
         .terminal-menu a {
             color: #ffffff !important;
             text-decoration: none !important;
-            font-size: 18px;
+            font-size: 21px;
             font-weight: bold;
             padding: 10px 15px;
             border-radius: 4px;
@@ -68,15 +68,16 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: #8585851e;
+            background-color: rgba(36, 42, 58, 0.9);
             color: #ffffff;
             padding: 10px 10px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
-            width: 50vw;
-            height: 50vh;
+            width: 80vw;
+            height: 80vh;
             max-width: 90%;
-            overflow-wrap: break-word; /* Enable wrapping for long words */
+            overflow-wrap: break-word;
+            font-family: 'Fira Code', monospace;
         }
 
         .terminal-header {
@@ -137,12 +138,13 @@
 
         .prompt-container {
             display: flex;
-            flex-wrap: wrap; /* Allow wrapping */ 
+            flex-wrap: wrap;
             align-items: baseline;
             gap: 5px;
-            font-size: 1.5rem;
+            font-size: 1.7rem;
             font-weight: bold;
             padding-top: 20px;
+            font-family: 'Fira Code', monospace;
         }
 
         .user-text {
@@ -161,34 +163,26 @@
 
         .dynamic-text {
             display: inline;
+            font-family: 'Fira Code', monospace;
         }
 
         .cursor {
             display: inline;
             width: 10px;
             background-color: #ffffff;
-            animation: blink 0.6s step-end infinite alternate;
+            animation: blink 0.8s steps(1, start) infinite;
         }
 
         @keyframes blink {
-            from {
-                background-color: transparent;
+            0% {
+                opacity: 1;
             }
-            to {
-                background-color: #ffffff;
+            50% {
+                opacity: 0;
             }
-        }
-
-        .content-section {
-            padding: 100px 20px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 1.5s ease;
-        }
-
-        .content-section.visible {
-            opacity: 1;
-            transform: translateY(0);
+            100% {
+                opacity: 1;
+            }
         }
 
         footer {
@@ -238,7 +232,7 @@
                     <div class="terminal-button close-button"></div>
                 </div>
                 <nav class="terminal-menu">
-                  <a href="#about">About</a>
+                  <a href="#about">Whois</a>
                   <a href="#projects">Projects</a>
                   <a href="#hobbies">Hobbies</a>
                   <a href="#resume">Resume</a>
@@ -246,7 +240,7 @@
                 </nav>
             </div>
             <div class="prompt-container">
-                <span class="user-text">root@hi-i'm-brian</span><span class="prompt-symbol">:~#</span>
+                <span class="user-text">root㉿brian</span><span class="prompt-symbol">:~#</span>
                 <div class="typing-container">
                     <span class="dynamic-text" id="dynamic-text"></span><span class="cursor">|</span>
                 </div>
@@ -254,51 +248,13 @@
         </div>
     </div>
 
-    <section id="about" class="content-section">
-        <h2>About Me</h2>
-        <p>Welcome to my portfolio! I am passionate about cybersecurity and enjoy building innovative solutions.</p>
-    </section>
-
-    <section id="projects" class="content-section">
-        <h2>Projects</h2>
-        <p>Explore some of my featured projects, including my SOC and Honeynet implementations.</p>
-    </section>
-
-    <section id="hobbies" class="content-section">
-        <h2>Hobbies</h2>
-        <p>Outside of cybersecurity, I enjoy improv comedy and learning about various fields.</p>
-    </section>
-
-    <section id="resume" class="content-section">
-        <h2>Resume</h2>
-        <p>Check out my resume for an overview of my skills, experience, and education.</p>
-    </section>
-
-    <section id="contact" class="content-section">
-        <h2>Contact</h2>
-        <p>Feel free to reach out to me at [your-email@example.com].</p>
-    </section>
-
     <footer>
         &copy; 2025 Brian's Portfolio. All rights reserved.
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('.content-section');
-
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            sections.forEach(section => observer.observe(section));
-
             const dynamicText = document.getElementById('dynamic-text');
-            const cursor = document.querySelector('.cursor');
             const phrases = [
                 " engineer of security ",
                 " watcher of movies ",
@@ -321,11 +277,15 @@
                 }
 
                 if (!isDeleting && charIndex === currentPhrase.length) {
-                    isDeleting = true;
-                    setTimeout(type, 1000);
+                    if (phraseIndex < phrases.length - 1) {
+                        isDeleting = true;
+                        setTimeout(type, 1000);
+                    } else {
+                        return; // Stop after the last phrase
+                    }
                 } else if (isDeleting && charIndex === 0) {
                     isDeleting = false;
-                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                    phraseIndex++;
                     setTimeout(type, 500);
                 } else {
                     setTimeout(type, isDeleting ? 0 : 50);
