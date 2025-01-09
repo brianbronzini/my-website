@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+        }
+
+        header .menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .terminal-menu a {
+            color: #ffffff !important;
+            text-decoration: none !important;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 4px;
+            background-color: transparent;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: inline-block;
+        }
+
+        .terminal-menu a:hover {
+            background-color: #00ff7f;
+            color: #000000;
+        }
+
+        header .menu-toggle {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: url('your-image-path.jpg') no-repeat center center/cover;
+        }
+
+        .terminal-display {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #000000;
+            color: #ffffff;
+            padding: 10px 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+            width: 50vw;
+            height: 50vh;
+            max-width: 90%;
+            overflow-wrap: break-word; /* Enable wrapping for long words */
+        }
+
+        .terminal-header {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            border-bottom: 2px solid #555;
+            padding-bottom: 5px;
+        }
+
+        .terminal-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        .terminal-button {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border: none;
+        }
+
+        .terminal-button:hover {
+            background-color: #333333;
+        }
+
+        .minimize-button::before {
+            content: '—';
+        }
+
+        .expand-button::before {
+            content: '⛶';
+        }
+
+        .close-button::before {
+            content: '✖';
+        }
+
+        .terminal-menu {
+            display: flex;
+            gap: 15px;
+            margin-top: 0;
+            padding-bottom: 0;
+            position: relative;
+            font-size: 1rem;
+            justify-content: flex-start;
+            padding-left: 0;
+        }
+
+        .prompt-container {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping */ 
+            align-items: baseline;
+            gap: 5px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding-top: 20px;
+        }
+
+        .user-text {
+            color: #ec0000;
+        }
+
+        .prompt-symbol {
+            color: #ffffff;
+        }
+
+        .typing-container {
+            display: inline;
+            font-size: inherit;
+            font-weight: inherit;
+        }
+
+        .dynamic-text {
+            display: inline;
+        }
+
+        .cursor {
+            display: inline;
+            width: 10px;
+            background-color: #ffffff;
+            animation: blink 0.6s step-end infinite alternate;
+        }
+
+        @keyframes blink {
+            from {
+                background-color: transparent;
+            }
+            to {
+                background-color: #ffffff;
+            }
+        }
+
+        .content-section {
+            padding: 100px 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1.5s ease;
+        }
+
+        .content-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            header .menu {
+                display: none;
+                flex-direction: column;
+                gap: 10px;
+                background-color: rgba(0, 0, 0, 0.9);
+                position: absolute;
+                top: 60px;
+                right: 20px;
+                padding: 10px;
+            }
+
+            header .menu-toggle {
+                display: block;
+            }
+
+            .terminal-display {
+                width: 90%;
+                height: auto;
+                padding: 10px 10px;
+                transform: translate(-50%, -50%);
+            }
+
+            .terminal-menu {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="terminal-display">
+            <div class="terminal-header">
+                <div class="terminal-title"></div>
+                <div class="terminal-buttons">
+                    <div class="terminal-button minimize-button"></div>
+                    <div class="terminal-button expand-button"></div>
+                    <div class="terminal-button close-button"></div>
+                </div>
+                <nav class="terminal-menu">
+                  <a href="#about">About</a>
+                  <a href="#projects">Projects</a>
+                  <a href="#hobbies">Hobbies</a>
+                  <a href="#resume">Resume</a>
+                  <a href="#contact">Contact</a>
+                </nav>
+            </div>
+            <div class="prompt-container">
+                <span class="user-text">root@hi-i'm-brian</span><span class="prompt-symbol">:~#</span>
+                <div class="typing-container">
+                    <span class="dynamic-text" id="dynamic-text"></span><span class="cursor">|</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="about" class="content-section">
+        <h2>About Me</h2>
+        <p>Welcome to my portfolio! I am passionate about cybersecurity and enjoy building innovative solutions.</p>
+    </section>
+
+    <section id="projects" class="content-section">
+        <h2>Projects</h2>
+        <p>Explore some of my featured projects, including my SOC and Honeynet implementations.</p>
+    </section>
+
+    <section id="hobbies" class="content-section">
+        <h2>Hobbies</h2>
+        <p>Outside of cybersecurity, I enjoy improv comedy and learning about various fields.</p>
+    </section>
+
+    <section id="resume" class="content-section">
+        <h2>Resume</h2>
+        <p>Check out my resume for an overview of my skills, experience, and education.</p>
+    </section>
+
+    <section id="contact" class="content-section">
+        <h2>Contact</h2>
+        <p>Feel free to reach out to me at [your-email@example.com].</p>
+    </section>
+
+    <footer>
+        &copy; 2025 Brian's Portfolio. All rights reserved.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.content-section');
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => observer.observe(section));
+
+            const dynamicText = document.getElementById('dynamic-text');
+            const cursor = document.querySelector('.cursor');
+            const phrases = [
+                " engineer of security ",
+                " watcher of movies ",
+                " improviser of comedy ",
+                " player of instruments ",
+                " reader of literature "
+            ];
+
+            let phraseIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            function type() {
+                const currentPhrase = phrases[phraseIndex];
+
+                if (isDeleting) {
+                    dynamicText.textContent = currentPhrase.substring(0, charIndex--);
+                } else {
+                    dynamicText.textContent = currentPhrase.substring(0, charIndex++);
+                }
+
+                if (!isDeleting && charIndex === currentPhrase.length) {
+                    isDeleting = true;
+                    setTimeout(type, 1000);
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                    setTimeout(type, 500);
+                } else {
+                    setTimeout(type, isDeleting ? 0 : 50);
+                }
+            }
+
+            type();
+        });
+    </script>
+</body>
+</html>
